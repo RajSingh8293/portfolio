@@ -6,7 +6,7 @@ import { CiMail } from 'react-icons/ci'
 
 const Contact = () => {
   return (
-    <section className="min-h-[80vh] py-24 px-10">
+    <section className="min-h-[80vh] py-24 lg:px-10 md:px-10 px-8">
       <h1 className="text-3xl text-white font-bold">
         Get In <span className="text-green-500">Touch</span>
       </h1>

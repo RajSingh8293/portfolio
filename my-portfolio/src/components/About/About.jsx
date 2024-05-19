@@ -5,8 +5,8 @@ import img from '../../assets/rajprofilepic.png'
 const About = () => {
   return (
     <div className=" ">
-      <div className="home_about lg:mt-0 lg:bg-slate-600 about_section md:mt-10 sm:mt-10 col about flex items-center justify-between w-[100%] px-10 py-12 lg:gap-10 md:gap-5  text-white">
-        <div className="about_image_section row lg:w-[40%] md:w-[40%]   flex justify-center items-center  my-10 mr-4 md:mb-4 ">
+      <div className="home_about lg:px-10 md:px-10 px-8 lg:mt-0 lg:bg-slate-600 about_section md:mt-10 col about flex items-center justify-between w-[100%] lg:gap-10 md:gap-5  text-white">
+        <div className="about_image_section row lg:w-[40%] md:w-[40%]   flex justify-center items-center  my-10 lg:mr-4 md:mb-4 ">
           <div className="hidden anim  about-img w-[100%] lg:flex md:flex justify-center items-center  ">
             <img
               src={img}

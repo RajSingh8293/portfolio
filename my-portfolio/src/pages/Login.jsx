@@ -4,19 +4,27 @@ import { NavLink, useNavigate } from 'react-router-dom'
 const Login = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [error, setError] = useState('')
   const navigate = useNavigate()
 
   const LoginUser = (e) => {
     e.preventDefault()
     console.log(email, password)
+    if (!email || !password) {
+      setError('All fields required')
+    }
+    localStorage.setItem('user', JSON.stringify(email))
   }
 
   return (
-    <div className="py-24 min-h-[100vh] flex justify-center items-center ">
+    <div className="py-24 h-[80vh] lg:h-[100vh] md:h-[90vh] sm:h-[90vh] flex justify-center items-center ">
       <div className="lg:w-[500px] w-[80%] signup-form">
         <div className="signup flex justify-center flex-col gap-5">
           <div className="flex justify-center">
             <h1 className="text-white text-3xl font-bold">Login</h1>
+          </div>
+          <div className=" flex justify-center items-center">
+            <span className=" text-[red]">{error}</span>
           </div>
           <div className="w-[100%] h-[40px] border">
             <input

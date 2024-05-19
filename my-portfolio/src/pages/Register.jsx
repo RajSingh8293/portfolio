@@ -5,19 +5,28 @@ const Register = () => {
   const [username, setUsername] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [error, setError] = useState('')
   const navigate = useNavigate()
 
   const RegisterUser = (e) => {
     e.preventDefault()
     console.log(username, email, password)
+    if (!username || !email || !password) {
+      setError('All fields required')
+    }
+
+    localStorage.setItem('user', JSON.stringify(email))
   }
 
   return (
-    <div className="py-24 min-h-[100vh] flex justify-center items-center ">
+    <div className="py-24 h-[80vh] lg:h-[100vh] md:h-[90vh] sm:h-[90vh] flex justify-center items-center ">
       <div className="lg:w-[500px] w-[70%] signup-form">
         <div className="signup flex justify-center flex-col gap-5">
           <div className="flex justify-center">
             <h1 className="text-white text-3xl font-bold">Register</h1>
+          </div>
+          <div className=" flex justify-center items-center">
+            <span className=" text-[red]">{error}</span>
           </div>
           <div className="w-[100%] h-[40px] border">
             <input
@@ -30,6 +39,7 @@ const Register = () => {
               }}
             />
           </div>
+
           <div className="w-[100%] h-[40px] border">
             <input
               type="email"

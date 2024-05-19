@@ -4,7 +4,7 @@ const Skills = () => {
   return (
     <div className="min-h-[100vh] ">
       <div className="">
-        <div className="bg-gray-800  flex justify-center items-center min-h-[70vh]">
+        <div className="bg-gray-800  flex justify-center items-center h-[50vh] lg:h-[70vh] md:h-[70vh] sm:h-[70vh]">
           <h1 className="text-white text-4xl font-bold">#skills</h1>
           {/* <Heading heading="about me" span="#" /> */}
         </div>

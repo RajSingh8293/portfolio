@@ -8,6 +8,6 @@ body {
   background-color: #1f2635;
 }
 
-.active {
-  width: 200px;
+.menuWidth {
+  width: 50%;
 }

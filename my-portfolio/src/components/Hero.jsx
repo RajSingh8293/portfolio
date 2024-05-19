@@ -9,12 +9,12 @@ import {
 
 const Hero = () => {
   return (
-    <div className="px-10 hero flex items-center lg:flex lg:items-center h-[100vh] lg:justify-between text-white md:pt-24  md:px-10">
-      <div className=" content lg:order-1  sm:px-10 sm:mb-5">
+    <div className="px-8 py-24 lg:py-0 md:py-0 sm:py-0 hero flex md:flex items-center lg:flex lg:items-center  sm:flex sm:items-center h-[80vh] md:h-[90vh] lg:h-[100vh] sm:h-[80vh] lg:justify-between text-white lg:pt-24 sm:pt-24">
+      <div className=" content lg:order-1 ">
         <div>
           <h2 className="anim  lg:text-4xl md:text-4xl sm:text-3xl text-3xl font-bold">
             Hii there, It's
-            <span className="text-green-400 ">Me</span>{' '}
+            <span className="text-green-400 "> Me</span>
           </h2>
           <h1 className="anim  lg:text-5xl md:text-5xl sm:text-4xl text-3xl my-4 font-bold">
             Harvans Singh ( Raj )

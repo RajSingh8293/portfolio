@@ -4,7 +4,7 @@ import Contact from '../components/Contact/Contact'
 const ContactPage = () => {
   return (
     <section>
-      <div className="bg-gray-800 flex justify-center items-center min-h-[70vh]">
+      <div className="bg-gray-800 flex justify-center items-center h-[50vh] lg:h-[70vh] md:h-[70vh] sm:h-[70vh]">
         <h1 className="text-white text-4xl font-bold">#contact me</h1>
       </div>
       <div className="w-[100%] h-[400px]">

@@ -8,7 +8,7 @@ import ServicesCard from './ServicesCard'
 const Services = () => {
   return (
     <>
-      <div className="services text-center px-10 py-10 mt-4 lg:w-[80%] md:w-[100%] w-[100%] mx-auto bg-#333333">
+      <div className="services text-center lg:px-10 md:px-10 px-8 py-10 mt-4 lg:w-[80%] md:w-[100%] w-[100%] mx-auto bg-#333333">
         <div className="heading ">
           <Heading heading="Our" span="Services" />
         </div>
