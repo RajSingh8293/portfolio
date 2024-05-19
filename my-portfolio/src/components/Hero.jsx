@@ -9,7 +9,7 @@ import {
 
 const Hero = () => {
   return (
-    <div className="px-8 py-24 lg:py-0 md:py-0 sm:py-0 hero flex md:flex items-center lg:flex lg:items-center  sm:flex sm:items-center h-[80vh] md:h-[90vh] lg:h-[100vh] sm:h-[80vh] lg:justify-between text-white lg:pt-24 sm:pt-24">
+    <div className="px-8 py-24 lg:py-0 md:py-0 sm:py-0 hero flex md:flex items-center lg:flex lg:items-center md:items-center  sm:flex sm:items-center h-[80vh] md:h-[90vh] lg:h-[100vh] sm:h-[80vh] lg:justify-between text-white lg:pt-24 sm:pt-24">
       <div className=" content lg:order-1 ">
         <div>
           <h2 className="anim  lg:text-4xl md:text-4xl sm:text-3xl text-3xl font-bold">
