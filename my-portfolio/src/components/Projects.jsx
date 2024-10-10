@@ -10,7 +10,7 @@ const Projects = () => {
             desc: "This is a Job Portal Website using Reactjs, Nodejs and MongoDb",
             link: "https://jobpostwebportal-frontedn.vercel.app",
             jobPortaiImage: "/src/assets/job_portal.png",
-            heading: "Job Portal Web"
+            heading: "Job Portal Web "
 
         },
         {

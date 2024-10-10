@@ -3,11 +3,12 @@
 import { NavLink } from "react-router-dom"
 
 const ProjectCard = ({ data }) => {
+    const image = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQwQmvZ51fwJLJaS0P8ZRTITiTBCjlbTrlAqA&s'
     return (
         <div className="flex justify-center flex-col items-center">
             <div className="container h-56 overflow-hidden max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                 <NavLink to={data.link} target="_blank">
-                    <img className="image rounded-t-lg" src={data.jobPortaiImage} alt="" />
+                    <img className="image rounded-t-lg" src={data.jobPortaiImage ? data.jobPortaiImage : image} alt="" />
                 </NavLink>
                 <div className="p-5 overlay flex flex-col justify-center items-center">
                     <NavLink to={data.link} target="_blank">
