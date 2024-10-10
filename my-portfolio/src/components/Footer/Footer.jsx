@@ -1,12 +1,10 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import {
   FaFacebook,
-  FaFacebookF,
   FaGithub,
   FaLinkedin,
   FaYoutube,
-  FaYoutubeSquare,
 } from 'react-icons/fa'
 import FooterListTitle from './FooterListTitle'
 const Footer = () => {
