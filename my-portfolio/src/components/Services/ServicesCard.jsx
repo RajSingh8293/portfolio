@@ -1,4 +1,4 @@
-import React from 'react'
+/* eslint-disable react/prop-types */
 const ServicesCard = ({ Image, heading, text }) => {
   return (
     <div className=" bg-[#333333] text-white card flex flex-col justify-center items-center  px-4 py-10 rounded-2xl ">

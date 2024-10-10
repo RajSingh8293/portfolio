@@ -1,4 +1,3 @@
-import React from 'react'
 import frontendImg from '../../assets/frontend-icon.png'
 import backendImg from '../../assets/backend-icon.png'
 import uiuxImg from '../../assets/ui-ux-icon.png'

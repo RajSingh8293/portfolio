@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import { RxCross2 } from 'react-icons/rx'
 import { CgMenuRightAlt } from 'react-icons/cg'
@@ -60,10 +60,9 @@ const Navbar = () => {
         <div className="">
           {/* <div className="toggleNav "> */}
           <ul
-            className={`toggleNav z-20 ${
-              showmenu && 'menuWidth'
-            } nav-links navLinks flex flex-col gap-10 absoluet fixed  lg:p-8 md:p-8 p-5 bg-white h-[100vh] top-0 right-0 nav `}
-            // className="nav-links navLinks ``
+            className={`toggleNav z-20 ${showmenu && 'menuWidth'
+              } nav-links navLinks flex flex-col gap-10 absoluet fixed  lg:p-8 md:p-8 p-5 bg-white h-[100vh] top-0 right-0 nav `}
+          // className="nav-links navLinks ``
           >
             <li className="links">
               <RxCross2 onClick={showBtn} className="text-2xl" />

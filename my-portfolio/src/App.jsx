@@ -1,4 +1,3 @@
-import React from 'react'
 import './App.css'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Navbar from './components/Navbar'
@@ -9,11 +8,14 @@ import Footer from './components/Footer/Footer'
 import Register from './pages/Register'
 import AboutPage from './pages/AboutPage'
 import Skills from './pages/Skills'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   return (
     <BrowserRouter>
       <Navbar />
+      < ToastContainer position='bottom-right' theme='dark' autoClose={5000} />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />

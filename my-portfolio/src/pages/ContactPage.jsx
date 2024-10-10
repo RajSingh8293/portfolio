@@ -1,4 +1,3 @@
-import React from 'react'
 import Contact from '../components/Contact/Contact'
 
 const ContactPage = () => {
@@ -15,7 +14,7 @@ const ContactPage = () => {
             style={{ border: 0, width: '100%' }}
             allowfullscreen=""
             loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade"
+            referrerPolicy="no-referrer-when-downgrade"
           ></iframe>
         </div>
       </div>
