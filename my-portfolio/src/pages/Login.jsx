@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
 
 const Login = () => {
@@ -14,8 +14,15 @@ const Login = () => {
       setError('All fields required')
     }
     localStorage.setItem('user', JSON.stringify(email))
+    navigate('/')
   }
 
+  useEffect(() => {
+    window.scroll({
+      top: 0,
+      behavior: "smooth",
+    });
+  }, [])
   return (
     <div className="py-24 h-[80vh] lg:h-[100vh] md:h-[90vh] sm:h-[90vh] flex justify-center items-center ">
       <div className="lg:w-[500px] w-[80%] signup-form">

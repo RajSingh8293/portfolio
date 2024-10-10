@@ -35,6 +35,7 @@ const Contact = () => {
       setLoading(false)
     }
   }
+
   return (
     <section className="min-h-[80vh] py-24 lg:px-10 md:px-10 px-8">
       <h1 className="text-3xl text-white font-bold">

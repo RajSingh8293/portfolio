@@ -1,6 +1,13 @@
+import { useEffect } from 'react';
 import Contact from '../components/Contact/Contact'
 
 const ContactPage = () => {
+  useEffect(() => {
+    window.scroll({
+      top: 0,
+      behavior: "smooth",
+    });
+  }, [])
   return (
     <section>
       <div className="bg-gray-800 flex justify-center items-center h-[50vh] lg:h-[70vh] md:h-[70vh] sm:h-[70vh]">

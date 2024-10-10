@@ -35,8 +35,14 @@ const Footer = () => {
   const footerPageLinks = [
     { id: 1, name: 'Home', path: '/' },
     { id: 2, name: 'About', path: '/about' },
-    { id: 3, name: 'Services', path: '/services' },
+    { id: 3, name: 'Services', path: '/' },
     { id: 4, name: 'Contact', path: '/contact' },
+  ]
+  const footerAcountLinks = [
+    { id: 1, name: 'Profile', path: '/' },
+    { id: 2, name: 'Portfolio', path: '/about' },
+    { id: 3, name: 'Addresses', path: '/' },
+    { id: 4, name: 'Projects', path: '/projects' },
   ]
   return (
     <div className="w-full bg-[#F5F5F3] py-20">
@@ -106,24 +112,13 @@ const Footer = () => {
         <div>
           <FooterListTitle title="Your account" />
           <div className="flex flex-col gap-2">
-            <NavLink
-              to="/profile"
+            {footerAcountLinks?.map((data) => <NavLink
+              key={data?.id}
+              to={data?.path}
               className="font-titleFont text-base text-lightText hover:text-black hover:underline decoration-[1px] decoration-gray-500 underline-offset-2 cursor-pointer duration-300"
             >
-              Profile
-            </NavLink>
-            <NavLink
-              to="/profile"
-              className="font-titleFont text-base text-lightText hover:text-black hover:underline decoration-[1px] decoration-gray-500 underline-offset-2 cursor-pointer duration-300"
-            >
-              Addresses
-            </NavLink>
-            <NavLink
-              to="/PortFolio"
-              className="font-titleFont text-base text-lightText hover:text-black hover:underline decoration-[1px] decoration-gray-500 underline-offset-2 cursor-pointer duration-300"
-            >
-              PortFolio
-            </NavLink>
+              {data?.name}
+            </NavLink>)}
           </div>
         </div>
         <div className="col-span-2 flex flex-col items-center w-full px-4">

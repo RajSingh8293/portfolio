@@ -1,6 +1,12 @@
-import React from 'react'
+import { useEffect } from 'react'
 
 const Skills = () => {
+  useEffect(() => {
+    window.scroll({
+      top: 0,
+      behavior: "smooth",
+    });
+  }, [])
   return (
     <div className="min-h-[100vh] ">
       <div className="">
