@@ -1,10 +1,10 @@
 import Hero from '../components/Hero'
-import About from '../components/About/About'
 import Services from '../components/Services/Services'
 import Contact from '../components/Contact/Contact'
 import Projects from '../components/Projects'
 import { Link } from 'react-router-dom'
 import { useEffect } from 'react'
+import AboutSection from '../components/About/AboutSection'
 
 const Home = () => {
   useEffect(() => {
@@ -16,7 +16,9 @@ const Home = () => {
   return (
     <section className="">
       <Hero />
-      <About />
+      <div className='lg:py-24 py-16 lg:px-10 px-8'>
+        <AboutSection />
+      </div>
       <div className=''>
         <Projects />
         <div className='w-full items-center flex justify-center flex-col'>
