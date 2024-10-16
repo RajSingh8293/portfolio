@@ -2,6 +2,7 @@ import Heading from "./Heading/Heading"
 import ProjectCard from "./ProjectCard"
 import img_1 from '../assets/job_portal.png'
 import img_2 from '../assets/e_commerce.png'
+import img_3 from '../assets/electronics_web.png'
 
 
 const Projects = () => {
@@ -22,6 +23,15 @@ const Projects = () => {
             link: "https://ecommerce-web-frontend-lilac.vercel.app",
             jobPortaiImage: img_2,
             heading: "E-commerce Web"
+
+        },
+        {
+            id: 3,
+            title: "Electronics E-commerce Website 2024",
+            desc: "This is a electronics E-commerce Website using Reactjs, Nodejs and MongoDb",
+            link: "https://electronic-frontend.vercel.app/",
+            jobPortaiImage: img_3,
+            heading: "Electronics E-commerce Website"
 
         },
     ]
