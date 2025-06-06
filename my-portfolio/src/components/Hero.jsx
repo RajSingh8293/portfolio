@@ -1,4 +1,3 @@
-import React from 'react'
 import image from '../assets/rajprofilepic.png'
 import {
   BiLogoFacebook,
@@ -13,7 +12,7 @@ const Hero = () => {
       <div className=" content lg:order-1 ">
         <div>
           <h2 className="anim  lg:text-4xl md:text-4xl sm:text-3xl text-3xl font-bold">
-            Hii there, It's
+            Hii there, {`It's`}
             <span className="text-green-400 "> Me</span>
           </h2>
           <h1 className="anim  lg:text-5xl md:text-5xl sm:text-4xl text-3xl my-4 font-bold">

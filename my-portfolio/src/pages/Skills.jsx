@@ -1,5 +1,72 @@
 import { useEffect } from 'react'
 
+const skillsData = [
+  {
+    title: "HTML",
+    textColor: "dark:text-white",
+    width: "w-[100%]",
+    bgColor: "bg-gray-600",
+    percentText: "100"
+  },
+  {
+    title: " CSS",
+    textColor: "text-blue-700 dark:text-blue-500",
+    width: "w-[80%]",
+    bgColor: "bg-blue-600",
+    percentText: "80"
+  },
+  {
+    title: " JAVSCRIPT",
+    textColor: "text-red-700 dark:text-red-500",
+    width: "w-[80%]",
+    bgColor: "bg-red-600",
+    percentText: "80"
+  },
+  {
+    title: " REACTJS",
+    textColor: "text-green-700 dark:text-green-500",
+    width: "w-[90%]",
+    bgColor: "bg-green-600",
+    percentText: "90"
+  },
+
+  {
+    title: "NODEJS / EXPRESSJS",
+    textColor: "text-yellow-700 dark:text-yellow-500",
+    width: "w-[80%]",
+    bgColor: "bg-yellow-400",
+    percentText: "80"
+  },
+  {
+    title: "MONGODB",
+    textColor: "text-indigo-700 dark:text-indigo-500",
+    width: "w-[80%]",
+    bgColor: "bg-indigo-600 dark:bg-indigo-500",
+    percentText: "80"
+  },
+  {
+    title: "TAILWIND CSS",
+    textColor: "text-purple-700 dark:text-purple-500",
+    width: "w-[80%]",
+    bgColor: "bg-purple-600 dark:bg-purple-500",
+    percentText: "80"
+  },
+  {
+    title: "BOOTSTRAP",
+    textColor: "text-orange-600",
+    width: "w-[90%]",
+    bgColor: "bg-orange-600",
+    percentText: "90"
+  },
+  {
+    title: " NEXTJS",
+    textColor: "text-green-700 dark:text-green-500",
+    width: "w-[80%]",
+    bgColor: "bg-green-600",
+    percentText: "80"
+  },
+]
+
 const Skills = () => {
   useEffect(() => {
     window.scroll({
@@ -19,71 +86,20 @@ const Skills = () => {
             I have following Skills
           </h1>
           <div className="border p-5 rounded">
-            <div className="mb-1 text-base font-medium dark:text-white">
-              HTML{' '}
-            </div>
-            <div className="w-full bg-gray-200 rounded-full  h-4.5 mb-4 dark:bg-gray-700">
-              <div className="w-[80%] text-center  bg-gray-600 h-[100%] rounded-full dark:bg-gray-300">
-                80%
-              </div>
-            </div>
-            <div className="mb-1 text-base font-medium text-blue-700 dark:text-blue-500">
-              CSS
-            </div>
-            <div className="w-full bg-gray-200 rounded-full  h-4.5 mb-4 dark:bg-gray-700">
-              <div className="w-[70%] text-center bg-blue-600 h-[100%] rounded-full">
-                70%
-              </div>
-            </div>
-            <div className="mb-1 text-base font-medium text-red-700 dark:text-red-500">
-              JAVSCRIPT
-            </div>
-            <div className="w-full bg-gray-200 rounded-full  h-4.5 mb-4 dark:bg-gray-700">
-              <div className="w-[50%] text-center bg-red-600 h-[100%] rounded-full dark:bg-red-500">
-                50%
-              </div>
-            </div>
-            <div className="mb-1 text-base font-medium text-green-700 dark:text-green-500">
-              REACTJS
-            </div>
-            <div className="w-full bg-gray-200 rounded-full  h-4.5 mb-4 dark:bg-gray-700">
-              <div className="w-[60%] text-center bg-green-600 h-[100%] rounded-full dark:bg-green-500">
-                60%
-              </div>
-            </div>
-            <div className="mb-1 text-base font-medium text-yellow-700 dark:text-yellow-500">
-              NODEJS / EXPRESSJS
-            </div>
-            <div className="w-full bg-gray-200 rounded-full  h-4.5 mb-4 dark:bg-gray-700">
-              <div className="w-[40%] text-center bg-yellow-400 h-[100%] rounded-full">
-                40%
-              </div>
-            </div>
-            <div className="mb-1 text-base font-medium text-indigo-700 dark:text-indigo-500">
-              MONGODB
-            </div>
-            <div className="w-full bg-gray-200 rounded-full  h-4.5 mb-4 dark:bg-gray-700">
-              <div className="w-[40%] text-center bg-indigo-600 h-[100%] rounded-full dark:bg-indigo-500">
-                40%
-              </div>
-            </div>
-            <div className="mb-1 text-base font-medium text-purple-700 dark:text-purple-500">
-              TAILWIND CSS
-            </div>
-            <div className="w-full bg-gray-200 rounded-full  h-4.5 dark:bg-gray-700">
-              <div className="w-[70%] text-center bg-purple-600 h-[100%] rounded-full dark:bg-purple-500">
-                70%
-              </div>
-            </div>
-
-            <div className="mb-1 pt-3 text-base font-medium text-orange-600 dark:text-purple-500">
-              BOOTSTRAP
-            </div>
-            <div className="w-full bg-gray-200 rounded-full h-4.5 dark:bg-gray-700">
-              <div className="w-[75%] text-center bg-orange-600 h-[100%] rounded-full dark:bg-purple-500">
-                75%
-              </div>
-            </div>
+            {
+              skillsData?.map((data) =>
+                <div key={data?.title}>
+                  <div className={`mb-1 text-base font-medium ${data.textColor} `}>
+                    {data.title}
+                  </div>
+                  <div className="w-full bg-gray-200 rounded-full  h-4.5 mb-4 dark:bg-gray-700">
+                    <div className={`${data.width} ${data.bgColor} text-center   h-[100%] rounded-full dark:bg-gray-300`}>
+                      {data.percentText}%
+                    </div>
+                  </div>
+                </div>
+              )
+            }
           </div>
         </div>
       </div>

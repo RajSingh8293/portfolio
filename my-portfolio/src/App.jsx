@@ -2,10 +2,8 @@ import './App.css'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import Home from './pages/Home'
-import Login from './pages/Login'
 import ContactPage from './pages/ContactPage'
 import Footer from './components/Footer/Footer'
-import Register from './pages/Register'
 import AboutPage from './pages/AboutPage'
 import Skills from './pages/Skills'
 import { ToastContainer } from 'react-toastify'
@@ -19,8 +17,6 @@ function App() {
       < ToastContainer position='bottom-right' theme='dark' autoClose={5000} />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/projects" element={<ProjectsPage />} />
         <Route path="/about" element={<AboutPage />} />

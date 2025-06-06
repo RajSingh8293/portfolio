@@ -2,12 +2,26 @@ import { useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import { RxCross2 } from 'react-icons/rx'
 import { CgMenuRightAlt } from 'react-icons/cg'
+import Modal from './Modal'
+import Button from './Button'
+import { useModal } from '../hooks/useModal'
+import AuthForm from './About/AuthForm'
 
 const Navbar = () => {
   const [showmenu, setShowmenu] = useState(false)
-
+  const { isOpen, openModal, closeModal } = useModal();
+  const [authType, setAuthType] = useState('login');
   const showBtn = () => {
     setShowmenu(!showmenu)
+  }
+
+  const user = JSON.parse(localStorage.getItem("user"))
+  const name = user?.split('@')[0];
+
+
+  const logOutUser = () => {
+    localStorage.removeItem("user")
+    alert("Loged Out Successfully")
   }
   return (
     <div className="relative bg-navbar z-50">
@@ -43,18 +57,39 @@ const Navbar = () => {
           </div>
 
           <div className="login  hidden lg:flex gap-6  flex-wrap md:hidden sm:hidden">
-            <NavLink
-              to="/login"
-              className="btn bg-gray-400 py-1 rounded hover:bg-slate-500"
-            >
-              <button className="btn   px-4 py-1 rounded">Login</button>
-            </NavLink>
-            <NavLink
-              to="/contact"
-              className="btn bg-green-400 py-1 rounded hover:bg-green-500"
-            >
-              <button className="btn   px-4 py-1 rounded">Contact</button>
-            </NavLink>
+            {user ?
+              <>
+                <Button
+                  className="text-white capitalize bg-gray-400 hover:bg-slate-500"
+                >
+                  Hello,{name}
+                </Button>
+                <Button
+                  onClickData={logOutUser}
+                  className="text-white capitalize bg-gray-400 hover:bg-slate-500"
+                >
+                  Logout
+                </Button>
+              </>
+              :
+              <Button
+                onClickData={openModal}
+                className="text-white bg-gray-400 hover:bg-slate-500"
+              >
+                {authType === "login" ? "Login" : "Register"}
+              </Button>}
+
+
+
+
+            <Button
+              className="bg-green-400  hover:bg-green-500">
+              <NavLink
+                to="/contact"
+              >
+                Contact
+              </NavLink>
+            </Button>
           </div>
         </div>
       </div>
@@ -91,6 +126,19 @@ const Navbar = () => {
           </ul>
         </div>
       )}
+
+      <Modal isOpen={isOpen} onClose={closeModal}>
+        {/* <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-4">
+          {authType === 'login' ? 'Login' : 'Register'}
+        </h2> */}
+        {/* {authType === 'register' && <RegisterCom btnText={authType === 'login' ? 'Login' : 'Register'} />
+        }
+        {authType === "login" && <LoginCom />} */}
+
+
+        <AuthForm authType={authType} closeModal={closeModal} setAuthType={setAuthType} />
+
+      </Modal>
     </div>
   )
 }
