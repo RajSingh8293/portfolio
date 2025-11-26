@@ -22,6 +22,6 @@ contactRouter.post(
 contactRouter.get("/", getContactSectionData);
 
 // Update title
-contactRouter.put("/update/:id", isAdmin, authMiddleware, updateContactSection);
+contactRouter.put("/update/:id", authMiddleware, isAdmin, updateContactSection);
 
 export default contactRouter;

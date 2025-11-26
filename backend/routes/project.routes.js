@@ -23,7 +23,7 @@ projectRouter.post(
 projectRouter.get("/", getProjectsSectionData);
 
 // Update title and description
-projectRouter.put("/update/:id", isAdmin, authMiddleware, updateProjectData);
+projectRouter.put("/update/:id", authMiddleware, isAdmin, updateProjectData);
 
 // // Update image
 projectRouter.put(

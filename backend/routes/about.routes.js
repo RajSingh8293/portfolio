@@ -23,7 +23,7 @@ aboutRouter.post(
 aboutRouter.get("/", getAboutSectionData);
 
 // Update title and description
-aboutRouter.put("/update/:id", isAdmin, authMiddleware, updateAboutSectionData);
+aboutRouter.put("/update/:id", authMiddleware, isAdmin, updateAboutSectionData);
 
 // Update image
 aboutRouter.put(

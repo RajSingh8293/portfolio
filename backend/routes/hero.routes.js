@@ -23,7 +23,7 @@ heroRouter.post(
 heroRouter.get("/", getHeroSectionData);
 
 // Update title
-heroRouter.put("/update/:id", isAdmin, authMiddleware, updateHeroSectionData);
+heroRouter.put("/update/:id", authMiddleware, isAdmin, updateHeroSectionData);
 
 // Update image
 heroRouter.put(
