@@ -8,6 +8,7 @@ import Button from './Button'
 // import AuthForm from './AuthForm'
 import { useDispatch, useSelector } from 'react-redux'
 import { logoutUser } from '../redux/slices/userSlice'
+import { useEffect } from 'react'
 
 const Navbar = () => {
 
@@ -34,6 +35,20 @@ const Navbar = () => {
 
 
 
+  useEffect(() => {
+    function handleOutsideClick(e) {
+      if (
+        mobileProfileRef.current &&
+        !mobileProfileRef.current.contains(e.target) &&
+        !mobileAvatarRef.current.contains(e.target)
+      ) {
+        setOpenProfile(false);
+      }
+    }
+
+    document.addEventListener("mousedown", handleOutsideClick);
+    return () => document.removeEventListener("mousedown", handleOutsideClick);
+  }, []);
 
 
   return (
@@ -96,13 +111,13 @@ const Navbar = () => {
                     >
                       Profile
                     </NavLink>
-                    <NavLink
+                    {user?.role === "admin" && <NavLink
                       to="/dashboard"
                       className="block px-3 py-2 hover:bg-gray-700 bg-gray-900 rounded-md text-sm"
                       onClick={() => setOpenProfile(false)}
                     >
                       Dashboard
-                    </NavLink>
+                    </NavLink>}
 
                     <button
                       onClick={() => dispatch(logoutUser())}
@@ -138,8 +153,8 @@ const Navbar = () => {
       {/* Mobile Sidebar Menu */}
       <ul
         className={`fixed top-0 right-0 h-screen w-64 bg-white z-50 flex flex-col gap-10 p-6 shadow-xl transition-transform duration-300 
-          ${showmenu ? "translate-x-0" : "translate-x-full"}
-        `}
+    ${showmenu ? "translate-x-0" : "translate-x-full"}
+  `}
       >
         <RxCross2 onClick={showBtn} className="text-2xl cursor-pointer" />
 
@@ -149,14 +164,15 @@ const Navbar = () => {
         <NavLink to="/skills" onClick={showBtn}>Skills</NavLink>
         <NavLink to="/contact" onClick={showBtn}>Contact</NavLink>
 
+        {/* PROFILE AREA */}
         <div className="border-y py-5 relative" ref={menuRef}>
-          {
-            user ? <>
-              {/* Profile Image */}
+          {user ? (
+            <>
+              {/* Profile Avatar */}
               <div
                 ref={mobileAvatarRef}
-                onClick={() => setOpenProfile(!openProfile)}
-                className="w-10 h-10 relative rounded-full cursor-pointer "
+                onClick={() => setOpenProfile((prev) => !prev)}
+                className="w-10 h-10 relative rounded-full cursor-pointer"
               >
                 <img
                   src={
@@ -169,44 +185,49 @@ const Navbar = () => {
                 />
               </div>
 
-              {/* Profile Popup */}
+              {/* DROPDOWN */}
               {openProfile && (
-                <div ref={mobileProfileRef} className="absolute right-0 top-12 w-40 bg-gray-300 shadow-lg rounded-md p-3 animate-dropdown z-50 flex flex-col gap-2">
-                  <p className="text-sm px-2 py-1 text-gray-600">
+                <div
+                  ref={mobileProfileRef}
+                  className="absolute right-0 top-0 w-44 bg-white border shadow-lg rounded-md p-3 animate-dropdown z-[999] flex flex-col gap-2"
+                >
+                  <p className="text-sm text-gray-700">
                     Hello, <span className="font-semibold">{user?.username}</span>
                   </p>
 
                   <NavLink
                     to="/profile"
-                    className="block px-3 py-2 text-white hover:bg-gray-700 bg-gray-900 rounded-md text-sm"
                     onClick={() => setOpenProfile(false)}
+                    className="block px-3 py-2 bg-gray-900 hover:bg-gray-700 text-white rounded"
                   >
                     Profile
                   </NavLink>
-                  <NavLink
-                    to="/dashboard"
-                    className="block px-3 py-2 text-white hover:bg-gray-700 bg-gray-900 rounded-md text-sm"
-                    onClick={() => setOpenProfile(false)}
-                  >
-                    Dashboard
-                  </NavLink>
+
+                  {user?.role === "admin" && (
+                    <NavLink
+                      to="/dashboard"
+                      onClick={() => setOpenProfile(false)}
+                      className="block px-3 py-2 bg-gray-900 hover:bg-gray-700 text-white rounded"
+                    >
+                      Dashboard
+                    </NavLink>
+                  )}
 
                   <button
                     onClick={() => dispatch(logoutUser())}
-                    className="block w-full text-left px-3 py-2 mt-2 hover:bg-gray-700 bg-gray-900 rounded-md text-sm text-white"
+                    className="block w-full text-left px-3 py-2 bg-gray-900 hover:bg-gray-700 text-white rounded"
                   >
                     Logout
                   </button>
                 </div>
               )}
             </>
-
-              :
-              <NavLink to="/login" >
-                Login
-              </NavLink>}
+          ) : (
+            <NavLink to="/login">Login</NavLink>
+          )}
         </div>
       </ul>
+
 
       {/* Auth Modal */}
       {/* <Modal isOpen={isOpen} onClose={closeModal}>
