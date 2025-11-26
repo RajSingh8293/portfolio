@@ -35,20 +35,20 @@ const Navbar = () => {
 
 
 
-  useEffect(() => {
-    function handleOutsideClick(e) {
-      if (
-        mobileProfileRef.current &&
-        !mobileProfileRef.current.contains(e.target) &&
-        !mobileAvatarRef.current.contains(e.target)
-      ) {
-        setOpenProfile(false);
-      }
-    }
+  // useEffect(() => {
+  //   function handleOutsideClick(e) {
+  //     if (
+  //       mobileProfileRef.current &&
+  //       !mobileProfileRef.current.contains(e.target) &&
+  //       !mobileAvatarRef.current.contains(e.target)
+  //     ) {
+  //       setOpenProfile(false);
+  //     }
+  //   }
 
-    document.addEventListener("mousedown", handleOutsideClick);
-    return () => document.removeEventListener("mousedown", handleOutsideClick);
-  }, []);
+  //   document.addEventListener("mousedown", handleOutsideClick);
+  //   return () => document.removeEventListener("mousedown", handleOutsideClick);
+  // }, []);
 
 
   return (
