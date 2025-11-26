@@ -5,7 +5,7 @@ import {
   updateAboutSectionData,
   uploadAboutImage,
 } from "../controllers/about.controllers.js";
-import { authMiddleware } from "../middleware/authMiddleware.js";
+import { authMiddleware, isAdmin } from "../middleware/authMiddleware.js";
 import uploadToCloudinary from "../middleware/cloudinaryUpload.js";
 
 const aboutRouter = Router();
@@ -15,6 +15,7 @@ aboutRouter.post(
   "/create",
   //   uploadToCloudinary.single("aboutImage"),
   authMiddleware,
+  isAdmin,
   createAboutSection
 );
 
@@ -22,12 +23,13 @@ aboutRouter.post(
 aboutRouter.get("/", getAboutSectionData);
 
 // Update title and description
-aboutRouter.put("/update/:id", authMiddleware, updateAboutSectionData);
+aboutRouter.put("/update/:id", isAdmin, authMiddleware, updateAboutSectionData);
 
 // Update image
 aboutRouter.put(
   "/image/:id",
   authMiddleware,
+  isAdmin,
   uploadToCloudinary.single("aboutImage"),
   uploadAboutImage
 );

@@ -40,9 +40,9 @@ const ContactEditor = () => {
 
     useEffect(() => {
         setForm({
-            location: contactData.location,
-            emailAddress: contactData.emailAddress,
-            gitHubAccount: contactData.gitHubAccount
+            location: contactData?.location || '',
+            emailAddress: contactData?.emailAddress || '',
+            gitHubAccount: contactData?.gitHubAccount || ''
         })
 
     }, [contactData])

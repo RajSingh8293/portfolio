@@ -17,6 +17,7 @@ import ProtectedRoute from './protectedRoutes/ProtectedRoute'
 import Dashboard from './pages/Dashboard'
 import Loader from './components/Loader'
 import Login from './pages/Login'
+import AdminRoute from './protectedRoutes/AdminRoute'
 
 function App() {
 
@@ -48,9 +49,9 @@ function App() {
           </ProtectedRoute>
         } />
         <Route path="/dashboard" element={
-          <ProtectedRoute>
+          <AdminRoute>
             <Dashboard />
-          </ProtectedRoute>
+          </AdminRoute>
         } />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/skills" element={<Skills />} />

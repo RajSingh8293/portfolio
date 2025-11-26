@@ -1,6 +1,6 @@
 import express, { Router } from "express";
 
-import { authMiddleware } from "../middleware/authMiddleware.js";
+import { authMiddleware, isAdmin } from "../middleware/authMiddleware.js";
 import {
   createContactSection,
   getContactSectionData,
@@ -14,6 +14,7 @@ contactRouter.post(
   "/create",
   // uploadToCloudinary.single("heroImage"),
   authMiddleware,
+  isAdmin,
   createContactSection
 );
 
@@ -21,6 +22,6 @@ contactRouter.post(
 contactRouter.get("/", getContactSectionData);
 
 // Update title
-contactRouter.put("/update/:id", authMiddleware, updateContactSection);
+contactRouter.put("/update/:id", isAdmin, authMiddleware, updateContactSection);
 
 export default contactRouter;

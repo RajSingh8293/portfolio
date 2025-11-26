@@ -15,7 +15,8 @@ const port = process.env.PORT || 3000;
 
 // CORS
 const corsOptions = {
-  origin: ["http://localhost:5173"],
+  // origin: ["http://localhost:5173"],
+  origin: ["https://portfolio-iota-blush-78.vercel.app"],
   credentials: true,
   methods: ["GET", "POST", "PUT"],
 };

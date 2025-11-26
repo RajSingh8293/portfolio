@@ -5,7 +5,7 @@ import {
   updateProjectData,
   uploadProjectImage,
 } from "../controllers/project.controllers.js";
-import { authMiddleware } from "../middleware/authMiddleware.js";
+import { authMiddleware, isAdmin } from "../middleware/authMiddleware.js";
 import uploadToCloudinary from "../middleware/cloudinaryUpload.js";
 
 const projectRouter = Router();
@@ -15,6 +15,7 @@ projectRouter.post(
   "/create",
   uploadToCloudinary.single("projectImage"),
   authMiddleware,
+  isAdmin,
   createProjectSection
 );
 
@@ -22,12 +23,13 @@ projectRouter.post(
 projectRouter.get("/", getProjectsSectionData);
 
 // Update title and description
-projectRouter.put("/update/:id", authMiddleware, updateProjectData);
+projectRouter.put("/update/:id", isAdmin, authMiddleware, updateProjectData);
 
 // // Update image
 projectRouter.put(
   "/image/:id",
   authMiddleware,
+  isAdmin,
   uploadToCloudinary.single("projectImage"),
   uploadProjectImage
 );

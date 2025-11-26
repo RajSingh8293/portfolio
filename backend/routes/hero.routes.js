@@ -5,7 +5,7 @@ import {
   updateHeroSectionData,
   uploadHeroImage,
 } from "../controllers/hero.controllers.js";
-import { authMiddleware } from "../middleware/authMiddleware.js";
+import { authMiddleware, isAdmin } from "../middleware/authMiddleware.js";
 import uploadToCloudinary from "../middleware/cloudinaryUpload.js";
 
 const heroRouter = Router();
@@ -15,6 +15,7 @@ heroRouter.post(
   "/create",
   // uploadToCloudinary.single("heroImage"),
   authMiddleware,
+  isAdmin,
   createHeroSection
 );
 
@@ -22,12 +23,13 @@ heroRouter.post(
 heroRouter.get("/", getHeroSectionData);
 
 // Update title
-heroRouter.put("/update/:id", authMiddleware, updateHeroSectionData);
+heroRouter.put("/update/:id", isAdmin, authMiddleware, updateHeroSectionData);
 
 // Update image
 heroRouter.put(
   "/image/:id",
   authMiddleware,
+  isAdmin,
   uploadToCloudinary.single("heroImage"),
   uploadHeroImage
 );
