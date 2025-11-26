@@ -115,7 +115,7 @@ const Navbar = () => {
               </>
             ) : (
               <NavLink to="/login"
-                className="text-white bg-gray-700 hover:bg-gray-800">
+                className="text-white bg-gray-700 hover:bg-gray-800 px-4 py-2 rounded-md">
                 Login
               </NavLink>
             )}

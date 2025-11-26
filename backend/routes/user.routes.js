@@ -12,6 +12,7 @@ import {
   allUsers,
   deletUserById,
   emailVerify,
+  deletAllUsers,
 } from "../controllers/user.controllers.js";
 import { authMiddleware } from "../middleware/authMiddleware.js";
 import uploadToCloudinary from "../middleware/cloudinaryUpload.js";
@@ -21,6 +22,7 @@ const userRouter = Router();
 // user
 userRouter.get("/", allUsers);
 userRouter.delete("/:id", deletUserById);
+userRouter.delete("/", deletAllUsers);
 userRouter.post("/register", registerUser);
 userRouter.post("/email-verify", emailVerify);
 userRouter.post(

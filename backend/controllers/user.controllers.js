@@ -44,6 +44,31 @@ export const deletUserById = async (req, res) => {
     });
   }
 };
+// delete all users
+export const deletAllUsers = async (req, res) => {
+  try {
+    const users = await User.deleteMany();
+
+    if (!users) {
+      return res.status(404).json({
+        success: false,
+        message: "Users not found",
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      message: "Users deleted succefully",
+      users,
+    });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({
+      success: false,
+      message: "Something went wrong while deleting users",
+    });
+  }
+};
 // register user
 export const registerUser = async (req, res) => {
   const { username, email, password } = req.body;
@@ -85,7 +110,7 @@ export const registerUser = async (req, res) => {
 
     const user = await userdata.save();
 
-    const { password: pass, ...rest } = user._doc; //  hide passwrod
+    const { password: pass, verifyEmailOtp: verify, ...rest } = user._doc; //  hide passwrod
 
     const htmlMessage = `
       <!DOCTYPE html>
@@ -359,7 +384,7 @@ export const loginUser = async (req, res) => {
       await sendEmail(data);
 
       return res.status(403).json({
-        success: false,
+        success: true,
         message: "Email not verified. OTP sent again!",
       });
     }
@@ -414,7 +439,9 @@ export const profileUser = async (req, res) => {
   try {
     const userId = req.user._id;
 
-    const user = await User.findById(userId).select("-password");
+    const user = await User.findById(userId).select(
+      "-password -verifyEmailOtp"
+    );
 
     if (!user) {
       return res.status(404).json({

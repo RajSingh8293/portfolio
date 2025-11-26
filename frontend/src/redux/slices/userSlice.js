@@ -34,13 +34,31 @@ export const { setLoading, setUser, setProfileUser, setError } =
 export default userSlice.reducer;
 
 // Register
-export const registerUser = (userData, navigate) => async (dispatch) => {
+export const registerUser = (userData, switchView) => async (dispatch) => {
   dispatch(setLoading(true));
   try {
     const { data } = await axiosInstance.post(`/api/users/register`, userData);
+    console.log("data :", data);
+
+    if (data?.success) {
+      // dispatch(setUser(data?.user));
+      if (switchView) switchView("verify-email");
+      toast.success(data.message || "Register Successfully!");
+    }
+  } catch (error) {
+    dispatch(setError(error?.response?.data?.message || "Register failed"));
+  } finally {
+    dispatch(setLoading(false));
+  }
+};
+// Register
+export const verifyUserEmail = (otp, navigate) => async (dispatch) => {
+  dispatch(setLoading(true));
+  try {
+    const { data } = await axiosInstance.post(`/api/users/email-verify`, otp);
     if (data?.success) {
       dispatch(setUser(data?.user));
-      toast.success(data.message || "Register Successfully!");
+      toast.success(data.message || "Email verify Successfully!");
       navigate("/");
     }
   } catch (error) {

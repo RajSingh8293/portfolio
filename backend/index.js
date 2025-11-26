@@ -10,6 +10,7 @@ import userRouter from "./routes/user.routes.js";
 import heroRouter from "./routes/hero.routes.js";
 import aboutRouter from "./routes/about.routes.js";
 import projectRouter from "./routes/project.routes.js";
+import contactRouter from "./routes/contact.routes.js";
 const port = process.env.PORT || 3000;
 
 // CORS
@@ -33,6 +34,7 @@ app.use("/api/users", userRouter);
 app.use("/api/hero", heroRouter);
 app.use("/api/about", aboutRouter);
 app.use("/api/projects", projectRouter);
+app.use("/api/contact", contactRouter);
 
 // Connect DB & start server
 

@@ -7,8 +7,10 @@ import { useState } from 'react'
 import { useForm } from "react-hook-form"
 import { toast } from "react-toastify"
 import axios from "axios"
+import { useSelector } from 'react-redux'
 
 const Contact = () => {
+  const { contactData } = useSelector(state => state.contactData)
   const [loading, setLoading] = useState(false)
   const {
     register,
@@ -48,7 +50,7 @@ const Contact = () => {
               <FaLocationDot className="w-[30px] h-[30px]" />
             </span>
             <span>
-              <p>Delhi, India</p>
+              <p>{contactData?.location}</p>
             </span>
           </div>
           <div className="flex items-center gap-8 ">
@@ -57,7 +59,7 @@ const Contact = () => {
             </span>
             <span>
               <NavLink to="https://mail.google.com/mail/u/0/#inbox" target='_blank'>
-                singhraj@gmail.com
+                {contactData?.emailAddress}
               </NavLink>
             </span>
           </div>
@@ -67,7 +69,7 @@ const Contact = () => {
             </span>
             <span>
               <NavLink to="https://github.com/RajSingh8293" target='_blank'>
-                https://github.com/RajSingh8293
+                {contactData?.gitHubAccount}
               </NavLink>
             </span>
           </div>

@@ -1,20 +1,24 @@
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate, useSearchParams } from 'react-router-dom';
+import { loginUser, registerUser, setUser, verifyUserEmail } from '../redux/slices/userSlice';
+
 import { CiMail, CiLock, CiUser } from "react-icons/ci";
 import { FiArrowLeft } from "react-icons/fi";
 import { IoEye, IoEyeOff } from "react-icons/io5";
-import { forgotPassword, loginUser, registerUser, resetPassword, setUser, verifyUserEmail } from "../redux/slices/userSlice";
-import { useNavigate, useSearchParams } from "react-router-dom";
-import { axiosInstance } from "../lib/axiosInstansce";
-import toast from "react-hot-toast";
+import { axiosInstance } from '../lib/axiosInstansce';
+import toast from 'react-hot-toast';
 
-const LoginPage = () => {
+const Login = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const [authType, setAuthType] = useState('login');
-    const { user, loading } = useSelector(state => state.user)
+    const [authType, setAuthType] = useState('register');
 
+    const { user } = useSelector(state => state.user)
 
+    const [errors, setErrors] = useState({});
+    const [showPass, setShowPass] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
 
     const [userData, setUserData] = useState({
         username: "",
@@ -22,7 +26,7 @@ const LoginPage = () => {
         password: "",
         confirmPassword: "",
         newPassword: "",
-        otp: null,
+        otp: "",
     });
 
 
@@ -30,56 +34,33 @@ const LoginPage = () => {
     const token = searchParams.get("token");
 
     useEffect(() => {
+        if (user) {
+            navigate('/')
+        }
+    }, [user, navigate]);
+    useEffect(() => {
         if (token) {
             setAuthType("passwordChange");
         }
     }, [token]);
-    // useEffect(() => {
-    //     if (!user) return;
-
-    //     const redirectPath = user?.role === "admin" ? "/dashboard" : "/";
-    //     navigate(redirectPath);
-    // }, [user, navigate]);
-
-
-    const [errors, setErrors] = useState({});
-    const [showPass, setShowPass] = useState(false);
-    const [isLoading, setIsLoading] = useState(false);
 
     const switchView = (newView) => {
         setAuthType(newView);
         setErrors({});
-        // Reset form data when switching views
         setUserData({
             username: "",
             email: "",
             password: "",
             confirmPassword: "",
             newPassword: "",
-            otp: null
+            otp: "",
         });
     };
 
-    // const switchView = (newView) => {
-    //     setAuthType(newView);
-    //     setErrors({});
 
-    //     // Keep email when switching to verify-email
-    //     setUserData((prev) => ({
-    //         username: "",
-    //         email: newView === "verify-email" ? prev.email : "",
-    //         password: "",
-    //         confirmPassword: "",
-    //         newPassword: "",
-    //         otp: null,
-    //     }));
-    // };
-    // Handle input change
     const handleChange = (e) => {
         setUserData({ ...userData, [e.target.name]: e.target.value });
     };
-
-    // Validate form
 
 
     const validateForm = () => {
@@ -114,56 +95,6 @@ const LoginPage = () => {
         return Object.keys(newErrors).length === 0;
     };
 
-    // Handle submit (Login/Register)
-    // const handleSubmit = (e) => {
-    //     e.preventDefault();
-    //     setErrors({});
-
-    //     if (!validateForm()) return;
-
-    //     setIsLoading(true);
-
-    //     if (authType === "login") {
-    //         dispatch(loginUser(userData, navigate));
-    //     }
-    //     else if (authType === "register") {
-    //         dispatch(
-    //             registerUser(userData, () => switchView("verify-email"))
-    //         );
-    //     } else if (authType === "verify-email") {
-    //         dispatch(verifyUserEmail(userData.otp, navigate));
-    //     }
-    //     else if (authType === "forgotPassword") {
-    //         dispatch(forgotPassword(userData.email));
-    //     } else if (authType === "passwordChange") {
-    //         dispatch(
-    //             resetPassword(
-    //                 token,
-    //                 {
-    //                     password: userData.newPassword,
-    //                     confirmPassword: userData.confirmPassword,
-    //                 },
-    //                 switchView
-    //             )
-    //         );
-    //     }
-
-    //     // Clear form after submit
-    //     setUserData({
-    //         username: "",
-    //         email: "",
-    //         password: "",
-    //         confirmPassword: "",
-    //         newPassword: "",
-    //         otp: null,
-    //     });
-
-    //     // Add your register logic here later…
-    //     setIsLoading(false);
-    // };
-
-
-
     const handleSubmit = async (e) => {
         e.preventDefault();
         setErrors({});
@@ -171,42 +102,75 @@ const LoginPage = () => {
 
         setIsLoading(true);
 
-        if (authType === "login") {
-            dispatch(loginUser(userData, navigate));
-        } else if (authType === "register") {
-            // Pass switchView to redirect to verify-email form after successful registration
-            dispatch(registerUser(userData, () => switchView("verify-email")));
-        } else if (authType === "verify-email") {
-            // dispatch(verifyUserEmail({ otp: userData.otp }, navigate));
-            const { data } = await axiosInstance.post(`/api/users/email-verify`, userData.otp);
-            console.log("data :", data);
+        if (authType === "register") {
+            // dispatch(registerUser(userData, switchView))
+            try {
+                const { data } = await axiosInstance.post(`/api/users/register`, userData);
+                console.log("data :", data);
 
-            if (data?.success) {
-                dispatch(setUser(data?.user));
-                toast.success(data.message || "Email verify Successfully!");
-                navigate("/");
+                if (data?.success) {
+                    dispatch(setUser(data?.user));
+                    switchView("verify-email");
+                    toast.success(data.message || "Register Successfully!");
+                }
+            } catch (error) {
+                toast.error(error?.response?.data?.message || "Register failed");
+            } finally {
+                setIsLoading(false);
             }
-        } else if (authType === "forgotPassword") {
-            dispatch(forgotPassword(userData.email));
-        } else if (authType === "passwordChange") {
-            dispatch(
-                resetPassword(
-                    token,
-                    {
-                        password: userData.newPassword,
-                        confirmPassword: userData.confirmPassword,
-                    },
-                    switchView
-                )
-            );
+        }
+        else if (authType === "verify-email") {
+            // dispatch(verifyUserEmail(userData, navigate));
+            try {
+                const { data } = await axiosInstance.post(`/api/users/email-verify`, userData);
+                if (data?.success) {
+                    dispatch(setUser(data?.user));
+                    toast.success(data.message || "Email verify Successfully!");
+                    navigate("/");
+                }
+            } catch (error) {
+                toast.error(error?.response?.data?.message || "Register failed");
+            } finally {
+                setIsLoading(false);
+            }
+        }
+        else if (authType === "login") {
+            // dispatch(verifyUserEmail(userData, navigate));
+            try {
+                const { data } = await axiosInstance.post(`/api/users/login`, userData);
+                console.log("data :", data);
+                if (data?.success) {
+                    if (!data?.user?.isVerified) {
+                        setAuthType("verify-email");
+                        // switchView("verify-email");
+                        toast.success(data?.message || "OTP sent to your email!");
+                    }
+                    console.log("data :", data);
+                    dispatch(setUser(data?.user));
+                    navigate("/");
+                    toast.success(data?.message || "Login Successfully!");
+                }
+            } catch (error) {
+                console.log("error :", error);
+                switchView("verify-email");
+                toast.success(error?.response?.data?.message || "Login failed");
+            } finally {
+                setIsLoading(false);
+            }
         }
 
+        setUserData({
+            username: "",
+            email: "",
+            password: "",
+            confirmPassword: "",
+            newPassword: "",
+            otp: "",
+        });
         setIsLoading(false);
     };
 
-    // ==============================
-    //         LOGIN UI
-    // ==============================
+
     const renderLoginForm = () => (
         <>
             <h2 className="text-3xl font-bold mb-6 text-center text-white">
@@ -296,7 +260,6 @@ const LoginPage = () => {
             </p>
         </>
     );
-
     // ==============================
     //       REGISTER UI
     // ==============================
@@ -323,8 +286,8 @@ const LoginPage = () => {
                         value={userData.username}
                         onChange={handleChange}
                         className={`w-full pl-10 pr-4 py-3 bg-gray-800 text-white border rounded-xl 
-              focus:ring-2 focus:ring-indigo-500 
-              ${errors.username ? "border-red-500" : "border-gray-700"}`}
+                  focus:ring-2 focus:ring-indigo-500 
+                  ${errors.username ? "border-red-500" : "border-gray-700"}`}
                     />
                 </div>
                 <p className="text-red-500 text-xs mt-1 ml-1 h-4">
@@ -345,8 +308,8 @@ const LoginPage = () => {
                         value={userData.email}
                         onChange={handleChange}
                         className={`w-full pl-10 pr-4 py-3 bg-gray-800 text-white border rounded-xl 
-              focus:ring-2 focus:ring-indigo-500 
-              ${errors.email ? "border-red-500" : "border-gray-700"}`}
+                  focus:ring-2 focus:ring-indigo-500 
+                  ${errors.email ? "border-red-500" : "border-gray-700"}`}
                     />
                 </div>
                 <p className="text-red-500 text-xs mt-1 ml-1 h-4">
@@ -367,8 +330,8 @@ const LoginPage = () => {
                         value={userData.password}
                         onChange={handleChange}
                         className={`w-full pl-10 pr-10 py-3 bg-gray-800 text-white border rounded-xl 
-              focus:ring-2 focus:ring-indigo-500 
-              ${errors.password ? "border-red-500" : "border-gray-700"}`}
+                  focus:ring-2 focus:ring-indigo-500 
+                  ${errors.password ? "border-red-500" : "border-gray-700"}`}
                     />
                     <span
                         onClick={() => setShowPass(!showPass)}
@@ -423,14 +386,14 @@ const LoginPage = () => {
                         <CiLock size={20} />
                     </span>
                     <input
-                        type="otp"
+                        type="text"
                         name="otp"
                         placeholder="Your OTP"
                         value={userData.otp}
                         onChange={handleChange}
                         className={`w-full pl-10 pr-4 py-3 bg-gray-800 text-white border rounded-xl 
-            focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 
-            ${errors.email ? "border-red-500" : "border-gray-700"}`}
+                focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 
+                ${errors.email ? "border-red-500" : "border-gray-700"}`}
                     />
                 </div>
                 <p className="text-red-500 text-xs mt-1 ml-1 h-4">{errors.otp || ""}</p>
@@ -441,11 +404,10 @@ const LoginPage = () => {
                 disabled={isLoading}
                 className="w-full bg-gradient-to-r from-indigo-500 to-pink-500 text-white font-semibold py-3 rounded-xl hover:bg-blue-700 transition duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
             >
-                {isLoading ? "Sending..." : "Send Reset Link"}
+                {isLoading ? "Processing.." : "Verify Email"}
             </button>
         </>
     );
-
 
     //  Forgot Password Form
     const renderForgotPasswordForm = () => (
@@ -582,23 +544,6 @@ const LoginPage = () => {
         </div>
     );
 
-    // const renderForm = () => {
-    //     switch (authType) {
-    //         case "login":
-    //             return renderLoginForm();
-    //         case "register":
-    //             return renderRegisterForm();
-    //         case "verify-email":
-    //             return renderVerifyEmailForm();
-    //         case "forgotPassword":
-    //             return renderForgotPasswordForm();
-    //         case "passwordChange":
-    //             return token ? renderPasswordChangeForm() : renderTokenError();
-    //         default:
-    //             return renderLoginForm();
-    //     }
-    // };
-
     const renderForm = () => {
         switch (authType) {
             case "login":
@@ -615,7 +560,6 @@ const LoginPage = () => {
                 return renderLoginForm();
         }
     };
-    // if (loading) return <Loader />
     return (
         <div className="bg-gray-800  text-white min-h-screen flex items-center justify-center p-4 sm:p-6 font-sans">
             <div className=" w-full max-w-md backdrop-blur-xl  p-8 rounded-3xl shadow-2xl  ">
@@ -628,7 +572,7 @@ const LoginPage = () => {
                 </form>
             </div>
         </div>
-    );
-};
+    )
+}
 
-export default LoginPage;
+export default Login

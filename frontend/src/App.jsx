@@ -14,9 +14,9 @@ import { Toaster } from 'react-hot-toast'
 import NoPage from './pages/NoPage'
 import Profile from './pages/Profile'
 import ProtectedRoute from './protectedRoutes/ProtectedRoute'
-import LoginPage from './pages/LoginPage'
 import Dashboard from './pages/Dashboard'
 import Loader from './components/Loader'
+import Login from './pages/Login'
 
 function App() {
 
@@ -37,7 +37,7 @@ function App() {
       {/* < ToastContainer position='bottom-right' theme='dark' autoClose={5000} /> */}
       < Toaster position='bottom-right' theme='dark' autoClose={5000} />
       <Routes>
-        <Route path="/login" element={<LoginPage />} />
+        <Route path="/login" element={<Login />} />
         <Route path="/" element={<Home />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/projects" element={<ProjectsPage />} />
