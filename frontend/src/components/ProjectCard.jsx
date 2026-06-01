@@ -238,7 +238,7 @@ const ProjectCard = ({ data, hideEdit = false, openModal }) => {
       </div>
 
       {/* CAPTION */}
-      <NavLink
+      {/* <NavLink
         to={data.projectLink}
         target="_blank"
         className="
@@ -251,7 +251,7 @@ const ProjectCard = ({ data, hideEdit = false, openModal }) => {
     "
       >
         {data?.caption}
-      </NavLink>
+      </NavLink> */}
     </div>
   );
 };
