@@ -169,7 +169,7 @@ const ProjectCard = ({ data, hideEdit = false, openModal }) => {
 
         {/* CONTENT */}
         <div className="flex flex-col flex-1 p-6">
-          <NavLink to={data.link} target="_blank">
+          <NavLink to={data.projectLink} target="_blank">
             <h3
               className="
             text-xl font-bold text-white
@@ -239,7 +239,7 @@ const ProjectCard = ({ data, hideEdit = false, openModal }) => {
 
       {/* CAPTION */}
       <NavLink
-        to={data.link}
+        to={data.projectLink}
         target="_blank"
         className="
       mt-4
